@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: auditdna-backend
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        value: auditdna-elite-jwt-secret-2025-production-saul-garcia-nmls
