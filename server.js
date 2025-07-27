@@ -38,7 +38,7 @@ try {
   app.use('/api/users', require('./routes/users'));
   app.use('/api/audits', require('./routes/audits'));
 } catch (error) {
-  console.log('Route loading error:', error.message);
+  console.log('Route error:', error.message);
 }
 
 app.get('/api/health', (req, res) => {
@@ -54,27 +54,16 @@ app.get('/api/health', (req, res) => {
 app.get('/', (req, res) => {
   res.json({
     message: 'AuditDNA ELITE 2.0 API Server',
-    status: 'Operational',
-    health: '/api/health'
+    status: 'Operational'
   });
-});
-
-app.use('*', (req, res) => {
-  res.status(404).json({ error: 'Route not found' });
 });
 
 app.use((err, req, res, next) => {
-  console.error('Error:', err);
-  res.status(500).json({ 
-    error: 'Internal Server Error',
-    message: process.env.NODE_ENV === 'development' ? err.message : 'Something went wrong'
-  });
+  res.status(500).json({ error: 'Server Error' });
 });
 
 app.listen(PORT, () => {
-  console.log('AuditDNA ELITE Backend running on port ' + PORT);
-  console.log('Frontend: https://auditdna.org');
-  console.log('All 20+ Elite Modules Ready');
+  console.log('AuditDNA Backend running on port', PORT);
 });
 
 module.exports = app;
